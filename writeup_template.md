@@ -63,7 +63,17 @@ Data was already split, I decided not to use augmented data at this time.
 ####3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 
-My final model was a LeNet archeticture with Dropout added between last two layers. 
+My Final Model layout is as follows:
+Layer 1: Convolutional. Input = 32x32x1. Output = 28x28x6.
+Layer 2:Pooling. Input = 28x28x6. Output = 14x14x6
+Layer 3: Convolutional. Output = 10x10x16
+Layer 4: Pooling. Input = 10x10x16. Output = 5x5x16.
+Layer 5: Flatten. Input = 5x5x16. Output = 400.
+Layer 6: Fully Connected. Input = 400. Output = 120.
+Layer 6 - 7 : Dropout layer
+Layer 7: Fully Connected. Input = 120. Output = 84.
+Layer 7 - 8: Dropout layer
+Layer 8: Fully Connected. Input = 84. Output = n_classes.
 
 
 ####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
@@ -72,10 +82,13 @@ I used a dropout level of 0.7 and a larning rate of 0.001 , together with an epo
 
 ####5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
+I chose Adam Optimizer in the end, after experimenting with Adadelta and finding it seemed to not quite work for my needs.
+Convolutional layers, were useful thanks to the fact the sign could sometimes be in different parts of the image, it let the net be more general.
+I mostly used guesswork at the start for the hyperparameter, but as it got closer, i moved in smaller steps, kind of like a manual schotastic descent.
 
 My final model results were:
-* validation set accuracy of 0.944 
-* test set accuracy of 0.926
+* validation set accuracy of 0.947
+* test set accuracy of 0.925
 I chose LeNet, as it seemed to be simple and well suited for this problem, I beleive there may have been others available, which if given extra time, would research.  
 
 ###Test a Model on New Images
@@ -87,7 +100,8 @@ The blue sky behind the sign makes it harder to distinguish, similar with image 
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-The model correctly guessed all the new traffic signs, though I suspect that is thanks to clear choices in them
+The model got 4 out of 5 of the signs correct.
+this 80% accuracy is worse then the test set, but I suspect with more new traffic signs, that would settle closer to the training/validation set's 93% accuracy.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
